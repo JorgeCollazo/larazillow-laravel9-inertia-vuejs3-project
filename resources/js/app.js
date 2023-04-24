@@ -2,7 +2,7 @@
 
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
-import MainLayout from "@/Layouts/MainLayout.vue";
+import MainLayout from "../js/Layouts/MainLayout.vue";
 
 createInertiaApp({
     resolve: async (name) => {                                                              // Tweaks in resolve function
