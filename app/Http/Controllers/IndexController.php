@@ -16,10 +16,10 @@ class IndexController extends Controller
 //        $listing->save();
 //        dd($listing);
         return inertia(
-    'Index/Index',
-              [
-                  'message' => 'Hello from Laravel!'
-              ]
+'Index/Index',
+          [
+              'message' => 'Hello from Laravel!'
+          ]
         );
     }
     public function show()

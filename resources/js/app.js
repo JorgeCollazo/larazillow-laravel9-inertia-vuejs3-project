@@ -1,8 +1,10 @@
 // Removed ./bootstrap import because it was deleted
 
 import { createApp, h } from 'vue';
-import { createInertiaApp } from '@inertiajs/vue3';
+import { createInertiaApp } from '@inertiajs/inertia-vue3'
 import MainLayout from "../js/Layouts/MainLayout.vue";
+import { ZiggyVue } from "ziggy";       // we were able to import it because we defined an alias for it in the vite.config file
+import '../css/app.css'
 
 createInertiaApp({
     resolve: async (name) => {                                                              // Tweaks in resolve function
@@ -16,6 +18,7 @@ createInertiaApp({
     setup({el, App, props, plugin}) {             // Because inertia will be in control of vue app, Destructuring the object that is being passed, it like converting into variables an object properties
         createApp({render: () => h(App, props)})
             .use(plugin)
+            .use(ZiggyVue)                  // Registering the Zyggyvue plugin
             .mount(el)
     },
 })
