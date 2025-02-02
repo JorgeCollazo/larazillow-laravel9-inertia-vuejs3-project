@@ -1,0 +1,210 @@
+########################## Installation Steps #################################
+
+    ► Download and Install PHP (unzip it, and create a single file on C:\, php8)
+        ☼ Edit the Path Environment Variable
+        ☼ Add a new entry: C:\php8 (Where you extracted the php8 files) and move it to the top
+        ☼ You can check by typing in the terminal php --version
+    ► Install Composer
+        ☼ Composer will install your PHP project no matter what framework you will use. It manages all the
+           dependencies
+        ☼ During the installation it will ask you to select the php.exe location
+        ☼ You can check by typing 'composer about' the installation
+    ► Install Nodejs
+    ► Download and install Docker
+    ► Inertia docs: inertiajs.com
+------------------------- What's Inertia? -------------------------
+
+    ► Inertia is not a another framework it is just a connector between 2 worlds (Vue and Laravel)
+    ► You can build SPA without building an API
+    ► The goal is to avoid some of the disadvantages when using APIs:
+        ☼ An API will just return data (tipically JSON format) instead of HTML pages. And it could be hard to
+          build them
+        ☼ The first concern is would be Security in your typical server-side application. You handle security
+           using sessions. With APIs you need to produce and then handle Tokens and Token-based authentication is
+           harder to maintain than session-based authentication
+        ☼ Also you need to be very aware of the data that you send.(It's very easy to expose data that shouldn't
+           be exposed)
+        ☼ This way you need to build and maintain 2 separate apps (Vue front-end and Laravel API)
+    ► That when Inertia comes in. It needs to be configured on the Frontend side, with Vuejs in this case but also
+      it needs to be configured in the Back side as well, Laravel in this case. (It can works with several
+      front-end and back-end frameworks)
+    ► Inertia let's you use all the goods of traditional server side development like:
+        ☼ Session Page Authentication
+        ☼ Middleware routing
+        ☼ Database Tools, etc
+    ► Create laravel project:
+        ► Via composer or Laravel installer
+    ► Installing Vite (Framework used for laravel to manage all front-end tasks)
+        ☼ Before laravel used Laravel mix which used Webpack for that.
+        ☼ The Laravel installation already includes Vite, but you need to install Vite plugin for Vue
+            > npm install --save-dev vue @vitejs/plugin-vue
+    ► Some tweaks on Vite.config file
+    ► Install inertia.js -> inertiajs.com
+    ► Quick note of Inertiajs:
+        ☼ Inertia isn't a framework, nor is it a replacement for your existing server-side or client-side frameworks.
+          Rather, it's designed to work with them. Think of Inertia as glue that connects the two. Inertia does this via
+          adapters. We currently have some official adapters:
+            > React, Vue, and Svelte (client-side adapters)
+            > Laravel and Rails (server-side adapters)
+        ☼ Via composer -> composer require inertiajs/inertia-laravel
+    ► Configure the Laravel adapter
+        ☼ Inertiajs assumes that you already have an app blade template
+        ☼ Rename default welcome.blade.php template to app.blade.php template.
+        ☼ Clean up the template
+        ☼ Inertiajs needs a root template that will be loaded on every page visit.
+        ☼ Add @vite laravel custom directive to point to the resources folder
+        ☼ Below add Inertiajs's directive @inertiaHead
+        ☼ In the body add @inertia directive as well, this is the one that renders the whole Vue app (It is like Vue router)
+    ► Configure the Vue adapter
+        ☼ npm install @inertiajs/vue3
+        ☼ Remove bootstrap.js and its corresponding import inside app.js file
+        ☼ Copy and paste the inertia's initialization (Intertia website) to app.js
+        ☼ Make some tweaks to that initialization in app.js
+        ☼ Tweaks on web.php
+    ► Remember to use the php artisan route:list useful command to check your project routes
+    ► Persistent layouts are used to persist values in the current component (ref variables, and so forth), because the
+      traditional way loose all that component state. That's why Inertia offers this.
+    ► To use them (with composition API, without exporting the component), you should create a 2nd script
+    ► You can use Default Layouts if you have to use the same layout all the time in all pages. (Tweaks on app.js)
+        ☼ After that you can know remove the duplicated script section in all components that were using the persistent layout
+           since it was defined in the app.js file
+        ☼ If you happen to want another Persistent layout you can simply add another script section and export it
+    ► A good practice is to set in your package.json a command like this:
+        ☼ "fix:eslint": "eslint --ext .js, .vue resources/js/ --fix"
+        ☼ After that you can just run this command and it will reformat all the code of you co-workers to format the code. Or
+          you can force them to run it before uploading their code.
+    ► In phpstorm you can use it like this (Built-in by default, just need to activate it):
+         https://www.jetbrains.com/help/phpstorm/eslint.html#ws_js_eslint_activate
+    ► Install laravel-debugbar and laravel-ide-helper plugins
+        ☼ https://github.com/barryvdh/laravel-debugbar
+            > composer require barryvdh/laravel-debugbar --dev // Just as development dependency
+        ☼ https://github.com/barryvdh/laravel-ide-helper
+            > composer require --dev barryvdh/laravel-ide-helper
+            > After install you can now use commands like this:
+                ◙ php artisan ide-helper:generate  -> It will generate an _ide_helper.php to help our IDE to interpret Laravel better (Code suggestions)
+            > You can configure your composer.json to do this each time you update your dependencies:
+                ◙ "@php artisan ide-helper:generate",       // Copy them into the "scripts":{} section of your composer.json
+                ◙ "@php artisan ide-helper:meta"            // Copy them into the "scripts":{} section of your composer.json
+            > From now on, each time you update your dependencies that file will be regenerated
+    ► You can check if it is enabled/disabled by checking APP_DEBUG = true in .env file
+    ► Now you need to connect to a database using Docker.
+        ☼ Create a new file called docker-compose.yml
+        ☼ Copy and paste the content of the provided file
+        ☼ Docker lets you run software by running something called "images", small pieces that contain software preinstalled
+          (2 in this case: MariaDB, Adminer)
+    ► After install Docker Desktop open the CLI and type:
+        ☼ docker compose-up     // Run this where the docker yml file is located, this will download the images
+    ► Then you can go to localhost:8080 and visualize Adminer UI login page
+    ► Configure the database connection in the .env file and config/database.php file
+        ☼ Create the database larazillow (collation utf8mb4_general_ci)
+        ☼ Using environment variables is the best practice for database configuration, because they let you keep settings and
+          credentials for different environments separated
+        ☼ Finally to check if the database configuration went as well run:
+            > php artisan db:show
+    ► Create a Listing model and its migration:
+        ☼ php artisan make:model Listing -m
+    ► Notice that the Model name is in singular and its associated table is in plural and snake_case:
+        ☼ Listing - Model
+        ☼ listings - Table
+        ☼ However, if you want to skip this convention you can set a table name declaring a protected variable:
+            > protected $table = 'my_lists';
+    ► Every migrations is composed of the following methods:
+        ☼ up method: Apply updates to the table
+        ☼ down method: Rollback updates to the table
+    ► Run the migrations:
+        ☼ php artisan migrate
+    ► You can also make a migration by yourself:
+        ☼ php artisan make:migration add_fields_to_listing_table
+    ► To know your migrations status:
+        ☼ php artisan migrate:status
+    ► To rollback your migration:
+        ☼ php artisan migrate:rollback
+    ► To re-run all the migrations you can run:
+        ☼ php artisan migrate:refresh
+    ► To re-run all the migrations and also seed the database:
+        ☼ php artisan migrate:refresh --seed
+    ► To fill your tables with fake data you can use laravel Model Factories. Factories are associated with Models
+        ☼ php artisan make:factory ListingFactory   // Note that convention says that you should use the model name sufixed with the factory keyword
+    ► Tweaks on ListingFactory model
+    ► The way to use model factories are automated tests or seeders
+    ► Seeding is the process of generating fake data
+    ► You can create as many seeding classes as you like
+    ► To run seeders just run:
+        ☼ php artisan db:seed
+        ☼ php artisan db:seed --class=UserSeeder    // In case you have an specific one
+    ► If you happen to have a new set of fake data, you can run:
+        ☼ php artisan migrate:refresh              // As php artisan db:seed would just duplicate the data
+    ► Using Tinker to query the database
+        ☼ php artisan tinker
+            > Listing::all()                          // Will list all models OR if tinker doesn't work use dd(Listing::all()); in the IndexController
+            > Listing::find(15)                       // Find the list with id=15
+            > Listing::where('beds', '>', 5)          //  This returns an object of type Builder. Which is the type of object returned by query constraints
+            > Listing::where('beds', '>', 5)->where('area', '>', 200)->orderby('beds', 'desc')->get();
+            > Listing::where('beds', '>', 5)->where('area', '>', 200)->orderby('beds', 'asc')->first();
+            > Listing::where('beds', '>', 5)->where('area', '>', 200)->orderby('beds', 'asc')->first();
+            > $listing = Listing::find(10)      // Getting the listing with ID 10
+              $listing->city = 'Springfield'    // Updating the city
+              $listing->save()                  // Saving the change
+            > Another way to do this but faster:
+               $listing = Listing::create(['city' => 'Springfield'])    // No need to call save() method here. However Mass
+                                                                           Assignment is disabled by default. To skip it, you
+                                                                           have to create a protected $fillable = ['beds, baths...']
+    ► Creating Resource Controllers
+        ☼ This are controllers for models that represent 'resources' of your project. They create automatically CRUD operations.
+        ☼ They are created adding a resource flag to the typical command to create controllers:
+            php artisan make:controller ListingController --resource
+        ☼ You can specify in the web.api file which method do you want
+            > Route::resource('Listing', ListingController::class)->only(['index', 'show']);
+    ► Take advantage from the Route Model Binding:
+        ☼ public function show(Listing $listing) -> This way you will get the whole object available, and no need to look for
+                                                     it using an ID
+    ► Middlewares provide a convenient mechanism for inspecting and filtering HTTP requests entering your application. For
+      example, Laravel includes a middleware that verifies the user of your application is authenticated. If the user is not
+      authenticated, the middleware will redirect the user to your application's login screen. However, if the user is
+      authenticated, the middleware will allow the request to proceed further into the application.
+      They will run before any HTTP request.
+    ► In the Kernel.php file you can find all the middleware classes that are being used. They get executed in that specific order
+    ► To use the Inertia middleware run:
+        ☼ php artisan inertia:middleware
+        ☼ This will publish the Inertia middleware class. (Generate the Middleware/HandleInertiaRequests.php file)
+    ► Then register it, for Laravel to know that it must use it:
+        ☼ Copy the namespace (App\Http\Middleware) and add it to the web group (Kernel.php). Check the Inertia documentation
+    ► You can now use it. (Tweaks on HandleInertiaRequests.php)
+    ► Flash messages are destroyed by laravel once the page is reloaded
+    ► Install ziggy library         // Routing library, to replace route names
+        ☼ composer require tightenco/ziggy
+    ► Add the @routes directive to the app.blade.php file
+    ► Then go to the vite.config file, add it and configure it
+    ► After that go to app.js to add this plugin there as well
+    ► Install Tailwind CSS with Vite / Using Vue (Go to this section in the TailwindCSS website) (TailwindCSS is a utility-class framework, utility classes are more descriptive)
+        ☼ Skip Step 1 (As you already have a Vite project created)
+        ☼ npm install -D tailwindcss postcss autoprefixer   (To install)
+        ☼ npx tailwindcss init -p                           (To generate config files)
+        ☼ Follow the others steps shown in the docs
+    ► Install a tailwindcss forms plugin
+        ☼ npm install -D @tailwindcss/forms
+        ☼ Add the plugin into the tailwind.config.js file
+        ☼ Import app.css into the app.js file
+    ► Note: TailwindCSS allows you to extract and apply repetitive styles through layers: (Base, Component, Utilities)
+    ► Inertia comes with a progress indicator:
+        ☼ npm install @inertiajs/progress
+        ☼ Then just go to the Inertia's website (Progress indicators section) and copy and paste this into \
+           app.blade.php file:
+                 > <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+        ☼ Note that you dont have to install nprogress library to use this
+    ► In the context of Vue applications, a "composable" is a function that leverages Vue's Composition API to
+      encapsulate and reuse stateful logic. (Used for the price calculation in this case)
+    ► Create a composable folder and a js file called "useMonthlyPayment" (prefix use for convention)
+    ► You can check for a whole community-made composables in vueuse.org website (Composables for common use)
+    ► Create the Auth controller
+        ☼ php artisan make:controller AuthController
+    ► Create the routes on web.php file for this controller
+
+
+----------------- LEFT ON FOLDER 10 (AUTHENTICATION) -----------------
+
+
+
+
+
+

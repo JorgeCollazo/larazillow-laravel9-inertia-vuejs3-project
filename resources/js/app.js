@@ -4,7 +4,15 @@ import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/inertia-vue3'
 import MainLayout from "../js/Layouts/MainLayout.vue";
 import { ZiggyVue } from "ziggy";       // we were able to import it because we defined an alias for it in the vite.config file
+import { InertiaProgress } from "@inertiajs/progress";
 import '../css/app.css'
+
+    InertiaProgress.init({
+    delay: 0,
+    color: '#29d',
+    includeCSS: 'true',
+    showSpinner: 'true',
+})
 
 createInertiaApp({
     resolve: async (name) => {                                                              // Tweaks in resolve function
