@@ -23,7 +23,7 @@ Route::get('/hello', [IndexController::class, 'show']);
 //    return view('welcome');
 //});
 
-//Route::resource('listing', ListingController::class)->only(['Index', 'show', 'create', 'store']);  // This will disable the rest of the routes
+//Route::resource('listing', ListingController::class)->only(['Index', 'show', 'create', 'store']);  // This 'only' method will disable the rest of the routes
 //Route::resource('listing', ListingController::class)->except(['destroy']);  // This will show all except this one
 Route::resource('listing', ListingController::class);  // This will show all methods
 

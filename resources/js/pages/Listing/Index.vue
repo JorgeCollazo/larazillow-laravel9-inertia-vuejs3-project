@@ -1,6 +1,6 @@
 <template>
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 ">
-        <Listing v-for="listing in listings" :key="listing.id" :listing="listing"> <!--Replaced div for new vue component Box-->
+        <Listing v-for="listing in listings" :key="listing.id" :listing="listing"> <!--Replaced div for new vue component Box--> <!--:key is the same has v-bind:key="listing.id"-->
 <!--            <div>--> <!--Since it was copied to the new Listing.vue component-->
 <!--                &lt;!&ndash;            <Link :href="`/listing/${listing.id}`">&ndash;&gt;      &lt;!&ndash;This work as well but we're using zyggy to rename routes instead&ndash;&gt;-->
 <!--                &lt;!&ndash;                <ListingAddress :listing="listing" />&ndash;&gt;-->

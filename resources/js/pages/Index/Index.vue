@@ -1,5 +1,5 @@
 <template>
-<!--    <MainLayout>-->
+<!--    <MainLayout>--> <!-- Local Component Registration -->
     <h1>Index</h1>
     <Link href="/hello">Show Page</Link>
     <div>
@@ -27,7 +27,7 @@ defineProps({
 // )
 </script>
 
-<!--<script>                        // To use Persistent layouts with composition API-->  <!--Can be removed after using Default Layout (app.js)-->
+<!--<script>         // To use Persistent layouts with composition API-->  <!--Can be removed after using Default Layout (app.js)-->
 <!--import MainLayout from "../../Layouts/MainLayout.vue";-->
 
 <!--export default {-->

@@ -16,7 +16,7 @@ export default defineConfig({
             }
         })
     ],
-    resolve: {                                                     // Added to work with Vite
+    resolve: {                                        // Added to make Ziggy plugin work with Vite to be used in javascript
         alias: {
             ziggy: path.resolve('vendor/tightenco/ziggy/dist/vue.es.js')
         }

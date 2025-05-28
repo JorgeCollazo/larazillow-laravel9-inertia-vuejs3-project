@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col-reverse md:grid md:grid-cols-12 gap-4">
+    <div class="flex flex-col-reverse md:grid md:grid-cols-12 gap-4"> <!-- from medium size it will be using grid layout-->
         <!--        <ListingAddress :listing="listing" />-->
         <Box class="md:col-span-7 flex items-center w-full">
             <div class="w-full text-center font-medium text-gray-500">No
@@ -19,7 +19,7 @@
                 <ListingAddress :listing="listing" class="text-gray-500"/>
             </Box>
             <Box>
-                <template #header>
+                <template #header> <!--This is from a slot element named header-->
                     Monthly Payment
                 </template>
                 <div>

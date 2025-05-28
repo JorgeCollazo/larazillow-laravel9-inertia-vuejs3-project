@@ -36,10 +36,15 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        return array_merge(parent::share($request), [
-            'flash' => [                                             // This data will be shared across all the views
-                'success' => $request->session()->get('success')
-            ]
+        return array_merge(parent::share($request), [                   // It is a merge because share method returns an array by default
+            'flash' => [                                                // This data will be shared across all the views
+                'success' => $request->session()->get('success')   // A 'success' session key
+            ],
+            'user' => $request->user() ? [
+                'id' => $request->user()->id,
+                'name' => $request->user()->name,
+                'email' => $request->user()->email
+            ] : null
         ]);
     }
 }

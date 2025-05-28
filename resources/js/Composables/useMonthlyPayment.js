@@ -3,7 +3,7 @@ import { computed, isRef } from "vue";                  // You can use computed 
 export const useMonthlyPayment = (total, interestRate, duration) => {   // Using composable
 
     const monthlyPayment = computed(() => {
-        const principle = isRef(total) ? total.value : total    // Using isRef is a good practice to check reactivity of variables
+        const principle = isRef(total) ? total.value : total    // Using isRef is a good practice to check the reactivity of variables
         const monthlyInterest = (isRef(interestRate) ? interestRate.value : interestRate) / 100 / 12
         const numberOfPaymentMonths = (isRef(duration) ? duration.value : duration) * 12
 

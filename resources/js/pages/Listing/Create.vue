@@ -3,7 +3,7 @@
         <div class="grid grid-cols-6 gap-4">
             <div class="col-span-2">
                 <label class="label">Beds</label>
-                <input v-model.number="form.beds" type="text" class="input"/>
+                <input v-model.number="form.beds" type="text" class="input"/> <!-- Directives in Vue accepts modifiers -->
                 <div v-if="form.errors.beds" class="input-error">
                     {{ form.errors.beds }}
                 </div>
@@ -74,7 +74,7 @@
 
 <script setup>
 // import { reactive } from 'vue'           // Using just Inertia library
-// import { Inertia, useForm } from '@inertiajs/inertia'
+// import { Inertia } from '@inertiajs/inertia'
 import { useForm } from '@inertiajs/inertia-vue3'
 
 // const form = reactive({                  // Using just Inertia library
@@ -91,7 +91,7 @@ const form = useForm({                 // useForm gives you access to all errors
 
 // const create = () => Inertia.post('/listing', form)      // Using just Inertia library
 // const create = () => form.post('/listing')
-const create = () => form.post(route('listing.store'))       // Using zyggy plugin routing instead
+const create = () => form.post(route('listing.store'))       // Using zyggy plugin routing instead of the standard url routing
 
 </script>
 

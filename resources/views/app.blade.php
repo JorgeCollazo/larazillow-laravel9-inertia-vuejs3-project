@@ -9,9 +9,9 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css"/>
     @routes
     @vite('resources/js/app.js')
-    @inertiaHead()
+    @inertiaHead()  <!--Inertia directive, that has to be placed here-->
 </head>
 <body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-300">
-@inertia
+    @inertia   <!--This Inertia directive is like a vue routing-->
 </body>
 </html>

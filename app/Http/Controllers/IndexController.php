@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Listing;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 class IndexController extends Controller
@@ -14,8 +15,8 @@ class IndexController extends Controller
 //        $listing = (Listing::find(10));
 //        $listing->city="Springfield";
 //        $listing->save();
-//        dd($listing);
-        return inertia(
+//        dd(Auth::user());
+        return inertia( // relative path to resources/js/pages
 'Index/Index',
           [
               'message' => 'Hello from Laravel!'

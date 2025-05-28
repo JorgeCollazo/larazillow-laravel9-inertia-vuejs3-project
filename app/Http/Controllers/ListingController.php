@@ -39,10 +39,10 @@ class ListingController extends Controller
 //        $listing->beds = $request->beds;
 //        $listing->save();
 
-//        Listing::create($request->all());
+//        Listing::create($request->all());     // This will pass all the data but without checking it, which is not safe, this is good just for testing faster if the insert functionality is working
 //        Listing::create([
 //            ...$request->all(),             // ... operator allows you to merge multiple arrays together (like array_merge in php)
-//            ...$request->validate([         // This will replace all that keys on all() array by those who are in the validate array (intersection)
+//            ...$request->validate([         // This will replace all the keys on all() array by those who are in the validate array (intersection)
 //                'beds' => 'required|integer|min:0|max:20'    // You can check for all validation constraints in laravel docs (validation rules)
 //            ])                                               // the resulting errors will be returned by HandleInertiaRequests middleware (parent::share($request))
 //        ]);
@@ -59,8 +59,8 @@ class ListingController extends Controller
             ])
         );
 
-        return redirect()->route('listing.Index')
-            ->with('success', 'Listing was created successfully!!');        // Will be accessible thanks to inertia flash data
+        return redirect()->route('listing.Index')                  // Flash messages are part of laravel ->with()
+            ->with('success', 'Listing was created successfully!!');    // Will be accessible thanks to inertia flash data
     }
 
     /**
@@ -96,7 +96,7 @@ class ListingController extends Controller
      */
     public function update(Request $request, Listing $listing)  // Using Model Binding
     {
-        $listing->update(                                       // Using Model Binding
+        $listing->update(                                       // Using Model Binding Before we were using Listing::create([]) static method
             $request->validate([         // This other way will just pass the data that passes validation
                 'beds' => 'required|integer|min:0|max:20',
                 'baths' => 'required|integer|min:0|max:20',

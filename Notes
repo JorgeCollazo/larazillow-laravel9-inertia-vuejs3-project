@@ -12,6 +12,7 @@
     ► Install Nodejs
     ► Download and install Docker
     ► Inertia docs: inertiajs.com
+
 ------------------------- What's Inertia? -------------------------
 
     ► Inertia is not a another framework it is just a connector between 2 worlds (Vue and Laravel)
@@ -41,13 +42,15 @@
     ► Some tweaks on Vite.config file
     ► Install inertia.js -> inertiajs.com
     ► Quick note of Inertiajs:
+        ☼ This is a directive @, like @if, @for, etc you can build your own like @vite
         ☼ Inertia isn't a framework, nor is it a replacement for your existing server-side or client-side frameworks.
           Rather, it's designed to work with them. Think of Inertia as glue that connects the two. Inertia does this via
           adapters. We currently have some official adapters:
             > React, Vue, and Svelte (client-side adapters)
             > Laravel and Rails (server-side adapters)
         ☼ Via composer -> composer require inertiajs/inertia-laravel
-    ► Configure the Laravel adapter
+        ☼ Inertia offers "Persistent Layouts", which prevents ref variables from changing when switching between pages
+    ► Configure the Laravel adapter (Laravel Inertia setup)
         ☼ Inertiajs assumes that you already have an app blade template
         ☼ Rename default welcome.blade.php template to app.blade.php template.
         ☼ Clean up the template
@@ -55,7 +58,7 @@
         ☼ Add @vite laravel custom directive to point to the resources folder
         ☼ Below add Inertiajs's directive @inertiaHead
         ☼ In the body add @inertia directive as well, this is the one that renders the whole Vue app (It is like Vue router)
-    ► Configure the Vue adapter
+    ► Configure the Vue adapter (Vue Inertia setup)
         ☼ npm install @inertiajs/vue3
         ☼ Remove bootstrap.js and its corresponding import inside app.js file
         ☼ Copy and paste the inertia's initialization (Intertia website) to app.js
@@ -75,6 +78,15 @@
           you can force them to run it before uploading their code.
     ► In phpstorm you can use it like this (Built-in by default, just need to activate it):
          https://www.jetbrains.com/help/phpstorm/eslint.html#ws_js_eslint_activate
+    ► If you wish to install it in VSCode:
+        ☼ Create a jsconfig.json file with that content (Check it out on the file)
+        ☼ Install ESlint libraries:
+            ► npm install --save-dev eslint eslint-plugin-vue
+        ☼ Create a .eslintrc.js file
+        ☼ Create a folder .vscode with the file settings.json
+        ☼ Tweak the package.json file
+        ☼ In your IDE in the Problems tab you will see all problems to fix
+            ► "fix:eslint": "eslint --ext .js, .vue resources/js/ --fix" running this will fix your files automatically. For example, forcing your developers to run the command before commit any changes
     ► Install laravel-debugbar and laravel-ide-helper plugins
         ☼ https://github.com/barryvdh/laravel-debugbar
             > composer require barryvdh/laravel-debugbar --dev // Just as development dependency
@@ -145,29 +157,49 @@
             > $listing = Listing::find(10)      // Getting the listing with ID 10
               $listing->city = 'Springfield'    // Updating the city
               $listing->save()                  // Saving the change
+              $listing = new Listing            // Creating a model to update it later
+              $listing->baths = 2
+              $listing->beds = 3
+              $listing->save()                  // Saving all data
+
             > Another way to do this but faster:
-               $listing = Listing::create(['city' => 'Springfield'])    // No need to call save() method here. However Mass
+               $listing = Listing::create(['city' => 'Springfield',])    // No need to call save() method here. However Mass
                                                                            Assignment is disabled by default. To skip it, you
                                                                            have to create a protected $fillable = ['beds, baths...']
     ► Creating Resource Controllers
-        ☼ This are controllers for models that represent 'resources' of your project. They create automatically CRUD operations.
+        ☼ These are controllers for models that represent 'resources' of your project. They create automatically CRUD operations.
         ☼ They are created adding a resource flag to the typical command to create controllers:
             php artisan make:controller ListingController --resource
         ☼ You can specify in the web.api file which method do you want
             > Route::resource('Listing', ListingController::class)->only(['index', 'show']);
     ► Take advantage from the Route Model Binding:
         ☼ public function show(Listing $listing) -> This way you will get the whole object available, and no need to look for
-                                                     it using an ID
+                                                     it using an ID. It is called Route Model Binding
     ► Middlewares provide a convenient mechanism for inspecting and filtering HTTP requests entering your application. For
       example, Laravel includes a middleware that verifies the user of your application is authenticated. If the user is not
       authenticated, the middleware will redirect the user to your application's login screen. However, if the user is
       authenticated, the middleware will allow the request to proceed further into the application.
       They will run before any HTTP request.
+      The next() function will allow you to move on the next middleware
+    ► Quick Vuejs note:
+
+        const form = ref()          // Native data types
+        const form = reactive({})   // Objects
+
+        const form = reactive({
+            beds:0                  // All properties become reactive, as long as the call is being made using the object
+       })
+
+       form.beds                    // Reactive
+       const bed = form.beds        // bed becomes not reactive
+
     ► In the Kernel.php file you can find all the middleware classes that are being used. They get executed in that specific order
     ► To use the Inertia middleware run:
         ☼ php artisan inertia:middleware
         ☼ This will publish the Inertia middleware class. (Generate the Middleware/HandleInertiaRequests.php file)
+        ☼ This middleware is useful to pass data to Inertia and then to the Views
     ► Then register it, for Laravel to know that it must use it:
+        ☼ Remember that you must register them in order to be used
         ☼ Copy the namespace (App\Http\Middleware) and add it to the web group (Kernel.php). Check the Inertia documentation
     ► You can now use it. (Tweaks on HandleInertiaRequests.php)
     ► Flash messages are destroyed by laravel once the page is reloaded
@@ -199,9 +231,12 @@
     ► Create the Auth controller
         ☼ php artisan make:controller AuthController
     ► Create the routes on web.php file for this controller
+    ► When creating components tags you can use PascalCase or Kebab-case
+    ► Laravel already comes with a User model
+    ► The default lifetime of a session in PHP is exactly 24 minutes
+    ►
 
 
------------------ LEFT ON FOLDER 10 (AUTHENTICATION) -----------------
 
 
 
