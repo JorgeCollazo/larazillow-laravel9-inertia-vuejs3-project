@@ -234,12 +234,30 @@
     ► When creating components tags you can use PascalCase or Kebab-case
     ► Laravel already comes with a User model
     ► The default lifetime of a session in PHP is exactly 24 minutes
-    ►
+    ► If you were to use Blade, you can make use of CSRF Tokens like this:
 
+        <form method="POST" action="/profile">
+            @csrf
 
+            <!-- Equivalent to... -->
+            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+        </form>
+    ► This tokens are regenerated in each new session, and are verified with the VerifyCsrfToken Laravel middleware.
+    ► In case you are using SPA Apps, you can use it through Inertia:
 
+        ☼ Adding the token first in the HandleInertiaRequests middleware
+        ☼ Then using it like this:
 
+            this.$inertia.post('/users', {
+                name: this.name,
+                email: this.email,
+                _token: this.$page.props.csrf_token
+            })
 
-
+    ► In Laravel the 419 HTTP error, means an error due to the unverified request because an fail with this token
+    ► You can add or refer to middleware shortcuts in the Kernel.php file
+    ► Another way to apply middlewares besides using them in routes is in class constructors
+    ► You can change the redirecting route of the auth middleware in the Authenticate.php file
+    ► Laravel accessors and mutators are used to move the transformation of some table fields to the Model instead of the Controller (e.g password field)
 
 

@@ -8,10 +8,14 @@ use Illuminate\Http\Request;
 
 class ListingController extends Controller
 {
+//    public function __construct() {
+//        $this->middleware('auth')->except(['index', 'show']);   // Another way to apply middlewares
+//    }
+
     /**
      * Display a listing of the resource.
      */
-    public function Index()
+    public function index()
     {
         return inertia(
             'Listing/Index',

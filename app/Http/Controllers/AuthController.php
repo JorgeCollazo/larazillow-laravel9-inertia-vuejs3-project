@@ -25,10 +25,15 @@ class AuthController extends Controller
 
 //        return redirect()->intended();  // When a user tries to access a protected route (e.g., /dashboard) but gets redirected to a login page first, Laravel stores their original URL (e.g., /dashboard) in the session.
                                         // After login, redirect()->intended() sends them back to that stored URL.
-        return redirect()->intended('/listing');    // To be redirected to that route
+        return redirect()->intended('listing.index');    // To be redirected to that route
     }
 
-    public function destroy() {
+    public function destroy(Request $request) {
+        Auth::logout();
 
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();     // This method regenerates the CSRF
+
+        return redirect()->route('listing.Index');
     }
 }

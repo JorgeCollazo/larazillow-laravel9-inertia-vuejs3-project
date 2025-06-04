@@ -12,6 +12,7 @@ class IndexController extends Controller
 {
     public function index()
     {
+//        dd(Auth::check());
 //        $listing = (Listing::find(10));
 //        $listing->city="Springfield";
 //        $listing->save();
