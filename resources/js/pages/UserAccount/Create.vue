@@ -22,13 +22,18 @@
             </div>
             <div class="mt-4">
                 <button class="btn-primary w-full" type="submit">Create Account</button>
+                <div class="mt-2 text-center">
+                    <Link :href="route('login')" class="text-sm text-gray-500">
+                        Already have a account? Click here
+                    </Link>
+                </div>
             </div>
         </div>
     </form>
 </template>
 
 <script setup>
-import { useForm } from '@inertiajs/inertia-vue3'
+import { useForm, Link } from '@inertiajs/inertia-vue3'
 
 const form = useForm({  // This helper will manage the validations errors that occurs in the backend by itself
     name:null,

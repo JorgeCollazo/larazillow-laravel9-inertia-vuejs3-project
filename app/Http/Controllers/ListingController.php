@@ -5,12 +5,18 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Listing;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ListingController extends Controller
 {
 //    public function __construct() {
 //        $this->middleware('auth')->except(['index', 'show']);   // Another way to apply middlewares
 //    }
+
+    public function __construct()
+    {           // Since this is a Resource Controller we can use the 3rd way of Authorization. Remember when using this way you have to look the Policy table in the Docs to see which Policy method goes to which Controller method
+        $this->authorizeResource(Listing::class, 'listing');
+    }
 
     /**
      * Display a listing of the resource.
@@ -30,6 +36,7 @@ class ListingController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Listing::class);
         return inertia('Listing/Create');
     }
 
@@ -50,7 +57,8 @@ class ListingController extends Controller
 //                'beds' => 'required|integer|min:0|max:20'    // You can check for all validation constraints in laravel docs (validation rules)
 //            ])                                               // the resulting errors will be returned by HandleInertiaRequests middleware (parent::share($request))
 //        ]);
-           Listing::create(
+//           Listing::create(                               // Replaced with below statement because it'll associate the listing with the user as well
+        $request->user()->listings()->create(
                $request->validate([         // This other way will just pass the data that passes validation
                 'beds' => 'required|integer|min:0|max:20',
                 'baths' => 'required|integer|min:0|max:20',
@@ -73,6 +81,10 @@ class ListingController extends Controller
 //    public function show(string $id)      // You can use this and just pass the id through the URL
     public function show(Listing $listing)  // But this is another way to do that called Model Route Binding (Laravel will fetch the model using the given id from the route parameter)
     {
+//        if (Auth::user()->cannot('view', $listing)) {   // The can/cannot methods just return a boolean value
+//            abort(403);             // This stop the Controller
+//        }
+        $this->authorize('view', $listing);     // This line does the same as the 3 above
         return inertia(
             'Listing/Show',
             [

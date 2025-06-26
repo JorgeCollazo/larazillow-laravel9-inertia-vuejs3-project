@@ -259,5 +259,25 @@
     ► Another way to apply middlewares besides using them in routes is in class constructors
     ► You can change the redirecting route of the auth middleware in the Authenticate.php file
     ► Laravel accessors and mutators are used to move the transformation of some table fields to the Model instead of the Controller (e.g password field)
+    ► If you call the associate() or disassociate() method on BelongsTo class, you still have to call the save() method
+    ► Remember, to get access to the current logged user you can make use of:
 
+        1-) Auth::user()                        // Auth Facade
+        2-) Request $request->user()            // Inside Controllers through the incoming Request
 
+    ► Listing::create([])                                   // This creates the Listing
+    ► Request $request->user()->listings()->create()        // This creates and associate the listing with a user
+    ► Eloquent Model has a Policy class that define rules for certain actions on models
+    ► It must be registered in AuthServiceProvider under $policies variable
+    ► Policies can be auto discovered if they follow the naming convention ModelNamePolicy, e.g ListingPolicy
+    ► php artisan make:policy --model=Listing
+    ► Authorizing actions:
+
+        ☼ If using resource controllers -> $this->authorizeResource(Model::class, 'model')
+        ☼ through -> User Model -> Use can('action', $model) or cannot('action', $model)
+        ☼ through -> Controller Helper -> Use $this->authorize('action', $model)
+        ☼ through -> Middleware -> middleware(can:update, listing)
+
+    ► Some actions dont require models, eg. create: $this->authorize('create', Model::class);
+    ► As your saw it can be applied in 3 levels: Model, Controller, Middleware
+    ► You can check in the Laravel docs the table (Controller Method - Policy Method)
