@@ -1,6 +1,6 @@
 <template>
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 ">
-        <Listing v-for="listing in listings" :key="listing.id" :listing="listing"> <!--Replaced div for new vue component Box--> <!--:key is the same has v-bind:key="listing.id"-->
+        <Listing v-for="listing in listings.data" :key="listing.id" :listing="listing"> <!--Replaced div for new vue component Box--> <!--:key is the same has v-bind:key="listing.id", and replaced listings for listings.data due to pagination-->
 <!--            <div>--> <!--Since it was copied to the new Listing.vue component-->
 <!--                &lt;!&ndash;            <Link :href="`/listing/${listing.id}`">&ndash;&gt;      &lt;!&ndash;This work as well but we're using zyggy to rename routes instead&ndash;&gt;-->
 <!--                &lt;!&ndash;                <ListingAddress :listing="listing" />&ndash;&gt;-->
@@ -24,6 +24,9 @@
 <!--            </div>-->
         </Listing>
     </div>
+    <div v-if="listings.data.length" class="w-full flex justify-center mt-8 mb-8">
+        <Pagination :links="listings.links" />
+    </div>
 </template>
 
 <script setup>      // Syntactic sugar for Composition API
@@ -33,9 +36,10 @@ import Box from "../../Components/UI/Box.vue";
 import ListingSpace from "../../Components/ListingSpace.vue";
 import Price from "../../Components/Price.vue";
 import Listing from '@/pages/Listing/Index/Components/Listing.vue'
+import Pagination from "../../Components/UI/Pagination.vue";
 
 defineProps({
-    listings: Array,
+    listings: Object  // Array, changed due to pagination object now returned by the ListingController
 })
 </script>
 
