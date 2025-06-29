@@ -8,6 +8,12 @@ use App\Models\User;
 
 class ListingPolicy
 {
+    public function before(?User $user, $ability)   // $ability is the name of the specific method below, this method wil allow us to overwrite the rest of policies, it will allow you to edit a listing that wasn't created by you but not delete it, the method is called "before" because it runs before all others methods in the class
+    {
+//        return isset($user->is_admin);
+        return ($user?->is_admin ?? false) && $ability === 'update';
+    }
+
     /**
      * Determine whether the user can view any models.
      */

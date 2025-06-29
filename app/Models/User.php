@@ -56,7 +56,7 @@ class User extends Authenticatable
     public function listings(): HasMany
     {
         return $this->hasMany(
-            \App\Models\Listing::class,
+            \App\Models\Listing::class,     // This returns a Collection, a special Laravel wrapper for arrays
             'by_user_id'
         );
     }

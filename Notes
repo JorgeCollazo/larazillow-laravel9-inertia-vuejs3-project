@@ -281,3 +281,13 @@
     ► Some actions dont require models, eg. create: $this->authorize('create', Model::class);
     ► As your saw it can be applied in 3 levels: Model, Controller, Middleware
     ► You can check in the Laravel docs the table (Controller Method - Policy Method)
+    ► There are a couple of ways to fetch related data:
+
+        ☼ User $user->listings() // (Accessing Method) Allows building queries: $user->listings()->where()->get()
+        ☼ User $user->listing    // (Accessing Property) It'll go and fetch all related listings to the user
+    ► The default behavior is Lazy Loading of relations, as opposed to eager Loading. Relations are only loaded when needed
+    ► For instance, in Tinker you can do:
+        ☼ $user = User::find(1) --> Lazy loading, it will fetch just the properties of the object not the listings
+        ☼ $user->listings                // All listings associated to that user
+        ☼ $user->listings()->get()       // The same here, but you can add queries: ->listings()->where()->get()
+        ☼ User::with('listings')->get()  // Users together with listings

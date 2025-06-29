@@ -17,8 +17,8 @@ class IndexController extends Controller
 //        $listing->city="Springfield";
 //        $listing->save();
 //        dd(Auth::user());
-        return inertia( // relative path to resources/js/pages
-'Index/Index',
+        return inertia( // relative path to resources/js/pages'
+        'Index/Index',
           [
               'message' => 'Hello from Laravel!'
           ]
