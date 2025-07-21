@@ -291,3 +291,6 @@
         ☼ $user->listings                // All listings associated to that user
         ☼ $user->listings()->get()       // The same here, but you can add queries: ->listings()->where()->get()
         ☼ User::with('listings')->get()  // Users together with listings
+    ► You can make use of scopeXXX Methods for queries, that is, diving queries into methods in the model
+    ► The $listing->withTrashed()-where('id', 1)->restore() // This method will return the trashed listings as well and restore the delete_at value to null again in the DB
+    ► Listing::find(1)->forceDelete() // This will delete the listing from the database, without the possibility to restore it later

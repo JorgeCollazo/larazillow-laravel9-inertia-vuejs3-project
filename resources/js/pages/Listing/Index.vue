@@ -1,4 +1,5 @@
 <template>
+    <Filter :filters="filters"/>
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 ">
         <Listing v-for="listing in listings.data" :key="listing.id" :listing="listing"> <!--Replaced div for new vue component Box--> <!--:key is the same has v-bind:key="listing.id", and replaced listings for listings.data due to pagination-->
 <!--            <div>--> <!--Since it was copied to the new Listing.vue component-->
@@ -24,7 +25,7 @@
 <!--            </div>-->
         </Listing>
     </div>
-    <div v-if="listings.data.length" class="w-full flex justify-center mt-8 mb-8">
+    <div v-if="listings.data.length" class="w-full flex justify-center mt-4 mb-4">
         <Pagination :links="listings.links" />
     </div>
 </template>
@@ -36,10 +37,12 @@ import Box from "../../Components/UI/Box.vue";
 import ListingSpace from "../../Components/ListingSpace.vue";
 import Price from "../../Components/Price.vue";
 import Listing from '@/pages/Listing/Index/Components/Listing.vue'
-import Pagination from "../../Components/UI/Pagination.vue";
+import Pagination from "@/Components/UI/Pagination.vue";
+import Filter from "@/pages/Listing/Index/Components/Filter.vue";
 
 defineProps({
-    listings: Object  // Array, changed due to pagination object now returned by the ListingController
+    listings: Object,  // Array, changed due to pagination object now returned by the ListingController
+    filters: Object
 })
 </script>
 

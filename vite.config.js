@@ -16,9 +16,15 @@ export default defineConfig({
             }
         })
     ],
-    resolve: {                                        // Added to make Ziggy plugin work with Vite to be used in javascript
+    resolve: {                    // Added to make Ziggy plugin work with Vite to be used in javascript
         alias: {
             ziggy: path.resolve('vendor/tightenco/ziggy/dist/vue.es.js')
         }
-    }
+    },
+    server: {
+        hmr: {
+            host: 'localhost', // Use your local development hostname or IP
+            // protocol: 'ws',    // Force WebSocket (avoid HTTP polling)
+        },
+    },
 });

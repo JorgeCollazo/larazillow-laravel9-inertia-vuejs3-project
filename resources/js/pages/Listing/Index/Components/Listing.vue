@@ -15,9 +15,9 @@
         <div>
             <Link :href="route('listing.edit', {listing: listing.id})"> Edit </Link> <!-- Here we use object notation instead -->
         </div>
-        <div>
-            <Link :href="route('listing.destroy', [listing.id])" method="DELETE" as="button"> Delete </Link> <!-- Here we use array notation instead -->
-        </div>
+<!--        <div> removed-->
+<!--            <Link :href="route('listing.destroy', [listing.id])" method="DELETE" as="button"> Delete </Link> &lt;!&ndash; Here we use array notation instead &ndash;&gt;-->
+<!--        </div>-->
     </Box>
 </template>
 

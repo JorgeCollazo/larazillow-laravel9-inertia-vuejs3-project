@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ListingController;
+use App\Http\Controllers\RealtonListingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserAccountController;
 
@@ -24,14 +25,24 @@ Route::get('/hello', [IndexController::class, 'show'])->middleware('auth'); // A
 //    return view('welcome');
 //});
 
-//Route::resource('listing', ListingController::class)->only(['Index', 'show', 'create', 'store']);  // This 'only' method will disable the rest of the routes
+Route::resource('listing', ListingController::class)->only(['create', 'store', 'edit', 'update'])->middleware('auth');  // This 'only' method will disable the rest of the routes
 //Route::resource('listing', ListingController::class)->except(['destroy']);  // This will show all except this one
-Route::resource('listing', ListingController::class);  // This will show all methods, you can use the ->only(['index', 'destroy'])->middleware('auth') method to select specific ones, the same as above
+//Route::resource('listing', ListingController::class);  // This will show all methods, you can use the ->only(['index', 'destroy'])->middleware('auth') method to select specific ones, the same as above
+Route::resource('listing', ListingController::class)->except(['create', 'store', 'edit', 'update', 'destroy'])->middleware('auth');  // This will show all methods, you can use the ->only(['index', 'destroy'])->middleware('auth') method to select specific ones, the same as above
 
 Route::get('login', [AuthController::class, 'create'])->name('login');
 Route::post('login', [AuthController::class, 'store'])->name('login.store');
 Route::delete('logout', [AuthController::class, 'destroy'])->name('logout');
 
 Route::resource('user-account', UserAccountController::class)->only(['create', 'store']);
+
+Route::prefix('realtor')
+    -> name('realtor.')
+    -> middleware('auth')
+    ->group(function () {           // All routes placed inside this will get ruled by the rules above
+        Route::resource('realton-listing', RealtonListingController::class)
+            ->only(['Index','destroy']);
+//          ->parameters(['realton-listing' => 'listing']); // Map URL parameter to method parameter(Replacing the name)
+    });
 
 
