@@ -154,4 +154,9 @@ class RealtonListingController extends Controller
 //        $listing->deleteOrFail(); // This will throw an exception if the delete fails, useful for debugging
 //        return redirect()->back()->with('success', 'Listing deleted successfully.');
     }
+
+    public function restore(Listing $realton_listing) {
+        $realton_listing->restore(); // This will restore a soft deleted listing
+        return redirect()->back()->with('success', 'Listing restored successfully.');
+    }
 }

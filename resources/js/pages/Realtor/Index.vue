@@ -27,7 +27,10 @@
                     </Link>
                     <Link
                         v-else
-                        class="btn-outline text-xs font-medium">
+                        class="btn-outline text-xs font-medium"
+                        :href="route('realtor.realton-listing.restore', {realton_listing: listing})"
+                        as="button"
+                        method="put">
                         Restore
                     </Link>
                 </div>
