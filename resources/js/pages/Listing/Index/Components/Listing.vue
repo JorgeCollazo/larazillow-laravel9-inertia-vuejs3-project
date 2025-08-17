@@ -12,9 +12,9 @@
                 <ListingAddress :listing="listing" class="text-gray-500"/>
             </Link>
         </div>
-        <div>
-            <Link :href="route('listing.edit', {listing: listing.id})"> Edit </Link> <!-- Here we use object notation instead -->
-        </div>
+<!--        <div>
+            <Link :href="route('listing.edit', {listing: listing.id})"> Edit </Link> &lt;!&ndash; Here we use object notation instead &ndash;&gt;
+        </div>-->
 <!--        <div> removed-->
 <!--            <Link :href="route('listing.destroy', [listing.id])" method="DELETE" as="button"> Delete </Link> &lt;!&ndash; Here we use array notation instead &ndash;&gt;-->
 <!--        </div>-->
@@ -23,7 +23,7 @@
 
 <script setup>
 
-import { Link } from '@inertiajs/inertia-vue3'
+import { Link } from '@inertiajs/vue3'
 import ListingAddress from '@/Components/ListingAddress.vue'
 import Box from "@/Components/UI/Box.vue";
 import ListingSpace from "@/Components/ListingSpace.vue";

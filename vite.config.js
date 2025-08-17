@@ -7,12 +7,19 @@ export default defineConfig({
     plugins: [
         laravel({
             input: ['resources/css/app.css', 'resources/js/app.js'],
-            refresh: true,
+            // refresh: true,
+            refresh: [
+                'resources/views/**/*.php',
+                'app/Http/Controllers/**/*.php', // Optional: Reload when controllers change
+                'routes/**/*.php',               // Optional: Reload when routes change
+            ],
         }),
         vue({                       // Was added after vite installation
             template: {
-                base: null,
-                includeAbsolute: false
+                transformAssetUrls: {
+                    base: null,
+                    includeAbsolute: false,
+                },
             }
         })
     ],

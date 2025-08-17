@@ -31,7 +31,7 @@
 </template>
 
 <script setup>      // Syntactic sugar for Composition API
-import { Link } from '@inertiajs/inertia-vue3'
+import { Link } from '@inertiajs/vue3'
 import ListingAddress from '../../Components/ListingAddress.vue'
 import Box from "../../Components/UI/Box.vue";
 import ListingSpace from "../../Components/ListingSpace.vue";

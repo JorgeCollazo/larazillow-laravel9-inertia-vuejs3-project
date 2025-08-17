@@ -33,7 +33,7 @@
 </template>
 
 <script setup>
-import { useForm, Link } from '@inertiajs/inertia-vue3'
+import { useForm, Link } from '@inertiajs/vue3'
 
 const form = useForm({  // This helper will manage the validations errors that occurs in the backend by itself
     name:null,

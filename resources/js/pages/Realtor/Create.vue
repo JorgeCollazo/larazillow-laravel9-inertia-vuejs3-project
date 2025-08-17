@@ -1,9 +1,9 @@
 <template>
-    <form @submit.prevent="update">
+    <form @submit.prevent="create">
         <div class="grid grid-cols-6 gap-4">
             <div class="col-span-2">
                 <label class="label">Beds</label>
-                <input v-model.number="form.beds" type="text" class="input"/>
+                <input v-model.number="form.beds" type="text" class="input"/> <!-- Directives in Vue accepts modifiers -->
                 <div v-if="form.errors.beds" class="input-error">
                     {{ form.errors.beds }}
                 </div>
@@ -66,36 +66,32 @@
             </div>
 
             <div class="col-span-6">
-                <button type="submit" class="btn-primary">Edit</button>
+                <button type="submit" class="btn-primary">Create</button>
             </div>
         </div>
     </form>
 </template>
 
 <script setup>
+// import { reactive } from 'vue'           // Using just Inertia library
+// import { Inertia } from '@inertiajs/inertia'
+import { useForm } from '@inertiajs/vue3'
 
-import { useForm } from '@inertiajs/inertia-vue3'
-
-const props = defineProps({
-    listing: Object,
-})
-
+// const form = reactive({                  // Using just Inertia library
 const form = useForm({                 // useForm gives you access to all errors that occur on every attribute
-    beds:props.listing.beds,
-    baths:props.listing.baths,
-    area:props.listing.area,
-    city:props.listing.city,
-    street:props.listing.street,
-    code:props.listing.code,
-    street_nr:props.listing.street_nr,
-    price:props.listing.price
+    beds: 0,
+    baths: 0,
+    area: 0,
+    city:null,
+    street:null,
+    code: null,
+    street_nr:null,
+    price:0
 })
 
 // const create = () => Inertia.post('/listing', form)      // Using just Inertia library
 // const create = () => form.post('/listing')
-
-// const update = () => form.put(`/listing/${props.listing.id}`)  // Using zyggy plugin routing instead
-const update = () => form.put(route('listing.update', {listing: props.listing.id}))
+const create = () => form.post(route('realtor.listing.store'))       // Using zyggy plugin routing instead of the standard url routing
 
 </script>
 

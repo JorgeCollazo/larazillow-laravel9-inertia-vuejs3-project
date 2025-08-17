@@ -15,6 +15,10 @@ class Listing extends Model
       'beds', 'baths', 'area', 'city', 'street', 'code', 'street_nr', 'price'
     ];
 
+    protected $sortable = [                     // This is used to define which fields can be sorted by the user, not a laravel reserved keyword
+        'price', 'created_at'
+    ];
+
     public function owner(): BelongsTo
     {
         return $this->belongsTo(\App\Models\User::class, 'by_user_id'); // If you skip this parameter it will be auto generated
@@ -50,6 +54,16 @@ class Listing extends Model
         ->when(
             $filters['areaTo'] ?? false,         // This condition should be met in order to get the fn executed
             fn($query, $value) => $query->where('area', '>=', $value)
+        )
+        ->when(
+            $filters['deleted'] ?? false,
+            fn($query, $value) => $query->withTrashed()     // This will include soft deleted listings in the query
+        )
+        ->when(
+            $filters['by'] ?? false,
+            fn($query, $value) =>
+            !in_array($value, $this->sortable) ? $query :
+                $query->orderBy($value, $filters['order'] ?? 'desc')     // This will include soft deleted listings in the query
         );
     }
 }

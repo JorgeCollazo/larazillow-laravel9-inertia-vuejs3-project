@@ -9,15 +9,15 @@
         <div class="container mx-auto">
             <nav class="p-4 flex items-center justify-between">
                 <div class="text-lg font-medium">
-                    <Link :href="route('listing.Index')">Listings</Link>
+                    <Link :href="route('realtor.realton-listing.Index')">Listings</Link>
                 </div>
                 <div
                     class="text-xl text-indigo-600 dark:text-indigo-300 font-bold text-center">
-                    <Link :href="route('listing.Index')">LaraZillow</Link>
+                    <Link :href="route('realtor.realton-listing.Index')">LaraZillow</Link>
                 </div>
                 <div v-if="user" class="flex items-center gap-4">
                     <Link class="text-sm text-gray-500" :href="route('realtor.realton-listing.Index')">{{ user.name }}</Link>
-                    <Link :href="route('listing.create')"
+                    <Link :href="route('realtor.realton-listing.create')"
                           class="btn-primary">
                         + New Listing
                     </Link>
@@ -43,16 +43,16 @@
 
 <script setup>      /* Here you are using Composition API */
 import {ref, computed} from "vue";
-import {Link, usePage} from '@inertiajs/inertia-vue3';
+import {Link, usePage} from '@inertiajs/vue3';
 import {router} from "@inertiajs/vue3";
 
 // const timer = ref(0)        // It wraps everything into a proxy object, that's why the need to call value property
 
 const page = usePage()          // Inertia Helper
 
-const flashSuccess = computed(() => page.props.value.flash.success)      // This structure is defined in the HandleInertiaRequests Inertia Middleware
+const flashSuccess = computed(() => page.props.flash.success)      // This structure is defined in the HandleInertiaRequests Inertia Middleware
 
-const user = computed(() => page.props.value.user)      // This structure is defined in the HandleInertiaRequests Inertia Middleware
+const user = computed(() => page.props.user)      // This structure is defined in the HandleInertiaRequests Inertia Middleware
 //page.props.value.flash.success
 
 // const x = ref(0)

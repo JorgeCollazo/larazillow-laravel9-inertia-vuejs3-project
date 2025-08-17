@@ -1,7 +1,7 @@
 // Removed ./bootstrap import because it was deleted
 
 import { createApp, h } from 'vue';
-import { createInertiaApp } from '@inertiajs/inertia-vue3'
+import { createInertiaApp } from '@inertiajs/vue3'
 // import MainLayout from "../js/Layouts/MainLayout.vue";
 import MainLayout from "@/Layouts/MainLayout.vue";  // You can now use this notation instead of relative path like above because of the configuration in the jsconfig.json file
 import { ZiggyVue } from "ziggy";       // we were able to import it because we defined an alias for it in the vite.config file
