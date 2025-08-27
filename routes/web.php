@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\RealtonListingController;
+use App\Http\Controllers\RealtorListingImageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserAccountController;
 
@@ -39,13 +40,15 @@ Route::resource('user-account', UserAccountController::class)->only(['create', '
 Route::prefix('realtor')
     -> name('realtor.')
     -> middleware('auth')
-    ->group(function () {           // All routes placed inside this will get ruled by the rules above
+    ->group(function () {               // All routes placed inside this will get ruled by the rules above
         Route::name('realton-listing.restore')->put('listing/{realton_listing}/restore', [RealtonListingController::class, 'restore'])
-            ->withTrashed(); // This will include soft deleted items in the route, so you can restore them
+            ->withTrashed();            // This will include soft deleted items in the route, so you can restore them
         Route::resource('realton-listing', RealtonListingController::class)
             ->only(['Index','destroy', 'edit', 'update', 'create', 'store'])
-            ->withTrashed();         // To include soft deleted items in the routes
-//          ->parameters(['realton-listing' => 'listing']); // Map URL parameter to method parameter(Replacing the name)
+            ->withTrashed();            // To include soft deleted items in the routes
+//          ->parameters(['realton-listing' => 'listing']); // Map URL parameter to method parameter(Replacing the name) without it, it will take the name of the resource, listing in this case.
+        Route::resource('listing.image', RealtorListingImageController::class)
+            ->only(['create', 'store', 'destroy']);
     });
 
 

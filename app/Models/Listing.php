@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Listing extends Model
@@ -65,5 +66,10 @@ class Listing extends Model
             !in_array($value, $this->sortable) ? $query :
                 $query->orderBy($value, $filters['order'] ?? 'desc')     // This will include soft deleted listings in the query
         );
+    }
+
+    public function images(): HasMany
+    {
+        return $this->hasMany(ListingImage::class); // This will automatically use the foreign key 'listing_id' in the ListingImage model
     }
 }

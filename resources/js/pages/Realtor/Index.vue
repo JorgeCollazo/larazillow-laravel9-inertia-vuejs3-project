@@ -13,27 +13,34 @@
                     </div>
                     <ListingAddress :listing="listing" class="text-gray-500"/>
                 </div>
-                <div class="flex items-center gap-1 text-gray-600 dark:text-gray-300">
-                    <a class="btn-outline text-xs font-medium" :href="route('listing.show', {listing:listing.id})"
-                        target="_blank">Preview</a>    <!-- It was changed to an a tag for maintain the ability to open a new tab-->
-                    <Link class="btn-outline text-xs font-medium" :href="route('realtor.realton-listing.edit', {realton_listing:listing})">Edit</Link>
-                    <Link
-                        v-if="!listing.deleted_at"
-                        class="btn-outline text-xs font-medium"
-                        :href="route('realtor.realton-listing.destroy', {realton_listing: listing})"
-                        as="button"
-                        method="delete">
-                        Delete
-                    </Link>
-                    <Link
-                        v-else
-                        class="btn-outline text-xs font-medium"
-                        :href="route('realtor.realton-listing.restore', {realton_listing: listing})"
-                        as="button"
-                        method="put">
-                        Restore
-                    </Link>
-                </div>
+                <section>
+                    <div class="flex items-center gap-1 text-gray-600 dark:text-gray-300">
+                        <a class="btn-outline text-xs font-medium" :href="route('listing.show', {listing:listing.id})"
+                           target="_blank">Preview</a>    <!-- It was changed to an a tag for maintain the ability to open a new tab-->
+                        <Link class="btn-outline text-xs font-medium" :href="route('realtor.realton-listing.edit', {realton_listing:listing})">Edit</Link>
+                        <Link
+                            v-if="!listing.deleted_at"
+                            class="btn-outline text-xs font-medium"
+                            :href="route('realtor.realton-listing.destroy', {realton_listing: listing})"
+                            as="button"
+                            method="delete">
+                            Delete
+                        </Link>
+                        <Link
+                            v-else
+                            class="btn-outline text-xs font-medium"
+                            :href="route('realtor.realton-listing.restore', {listing: listing})"
+                            as="button"
+                            method="put">
+                            Restore
+                        </Link>
+                    </div>
+                    <div class="mt-2">
+                        <Link :href="route('realtor.listing.image.create', {listing: listing.id})" class="block w-full btn-outline text-xs font-medium" as="button">
+                            Add Images
+                        </Link>
+                    </div>
+                </section>
             </div>
         </Box>
     </section>
